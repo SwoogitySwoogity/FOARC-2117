@@ -1,5 +1,7 @@
 package org.raiderrobotix.frc2017;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Servo;
@@ -90,10 +92,12 @@ public class Drivebase {
 	
 	public boolean turnToAngle(double angle, double speed) {
 		// TODO: Implement Eventually
+		return true;
 	}
 	
 	public boolean driveStraight(double distance, double speed) {
 		// TODO: Implement Eventually
+		return true;
 	}
 	
 	public double getGyroAngle() {
