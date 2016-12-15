@@ -47,7 +47,6 @@ public final class Robot extends IterativeRobot {
 	public void autonomousInit() {
 		m_drives.brakesOff();
 		m_autonController.resetStep();
-		m_drives.resetStep();
 		m_drives.resetNavX();
 	}
 

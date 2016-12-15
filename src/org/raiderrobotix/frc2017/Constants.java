@@ -2,8 +2,11 @@ package org.raiderrobotix.frc2017;
 
 public abstract class Constants { // TODO: get ALL values
 
-	// Assorted Constants
-	public static final double DRIVE_STRAIGHT_TOLERANCE = 1.0; // (In Degrees)
+	// Auto-Driving Constants
+	public static final double DRIVE_STRAIGHT_ANGLE_TOLERANCE = 1.0; // (In Degrees)
+	public static final double TURN_ANGLE_TOLERANCE = 1.0;
+	public static final double DRIVE_STRAIGHT_SPEED_SUBTRACTION = 0.15; //TODO: get
+	public static final double DRIVE_STRAIGHT_DISTANCE_TOLERANCE = 1.0; //TODO: get
 
 	// PWMs (Control) TODO: get
 	public static final int LEFT_DRIVES_PWM = 8;
