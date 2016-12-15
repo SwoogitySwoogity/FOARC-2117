@@ -62,12 +62,16 @@ public final class AutonController {
 		if (m_step == 0) {
 			try {
 				m_auton = new Auton(new File(Constants.FTP_AUTON_FILE_PATH));
+				m_timer.start();
+				m_timer.reset();
 				m_step++;
 			} catch (Exception e) {
 				System.out.println("FTP Auton Reading Exception");
 			}
 		} else {
-			m_auton.auton();
+			if(m_auton.auton(m_timer.get()) == 0.0) {
+				m_timer.reset();
+			}
 		}
 	}
 }
