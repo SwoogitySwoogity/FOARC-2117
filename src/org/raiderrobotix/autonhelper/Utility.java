@@ -2,6 +2,11 @@ package org.raiderrobotix.autonhelper;
 
 import java.awt.GridLayout;
 import java.io.File;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.net.URL;
+import java.net.URLConnection;
+import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 import javax.swing.JLabel;
@@ -12,6 +17,8 @@ import javax.swing.SwingConstants;
 import javax.swing.UIManager;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
+
+import org.raiderrobotix.frc2017.Constants;
 
 public abstract class Utility {
 
@@ -109,6 +116,15 @@ public abstract class Utility {
 				a = "";
 			}
 		return Double.toString(Double.parseDouble(a));
+	}
+
+	public static void sendOverFile(ArrayList<Instruction> auton)
+			throws IOException {
+		URL url = new URL(Constants.FTP_PREFIX + Constants.FTP_AUTON_FILE_PATH);
+		URLConnection conn = url.openConnection();
+		ObjectOutputStream out = new ObjectOutputStream(conn.getOutputStream());
+		out.writeObject(auton);
+		out.close();
 	}
 
 }

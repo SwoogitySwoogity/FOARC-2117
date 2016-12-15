@@ -1,7 +1,6 @@
 package org.raiderrobotix.frc2017;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import org.raiderrobotix.autonhelper.Auton;
 
@@ -64,8 +63,8 @@ public final class AutonController {
 			try {
 				m_auton = new Auton(new File(Constants.FTP_AUTON_FILE_PATH));
 				m_step++;
-			} catch (FileNotFoundException e) {
-				System.out.println("FTP Auton Exception");
+			} catch (Exception e) {
+				System.out.println("FTP Auton Reading Exception");
 			}
 		} else {
 			m_auton.auton();

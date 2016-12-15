@@ -2,8 +2,9 @@ package org.raiderrobotix.frc2017;
 
 public abstract class Constants { // TODO: get ALL values
 
-	// Assorted Things
+	// FTP Information
 	public static final String FTP_AUTON_FILE_PATH = "/home/lvuser/auton.dat";
+	public static final String FTP_PREFIX = "ftp://roboRIO-25-frc.local";
 	
 	// Auto-Driving Constants
 	public static final double TURN_ANGLE_TOLERANCE = 1.0; // (In Degrees)
