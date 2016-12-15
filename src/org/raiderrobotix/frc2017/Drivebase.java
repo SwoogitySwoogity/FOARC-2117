@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.Servo;
 import edu.wpi.first.wpilibj.VictorSP;
 
-public class Drivebase {
+public final class Drivebase {
 
 	private static Drivebase m_instance;
 
@@ -17,6 +17,7 @@ public class Drivebase {
 	private final Servo m_leftBrake;
 	private final Encoder m_leftEncoder;
 	private final Encoder m_rightEncoder;
+
 	private boolean m_brakesOn;
 	private boolean m_drivingStep;
 	private AHRS m_navX;
@@ -137,13 +138,16 @@ public class Drivebase {
 			double leftSpeed = speed;
 			double rightSpeed = speed;
 			if (Math.abs(getGyroAngle()) > Constants.DRIVE_STRAIGHT_ANGLE_TOLERANCE) {
+				// Adjust speeds for incorrect angles
 				if (getGyroAngle() > 0) {
+					// Too far clockwise
 					if (distance > 0) {
 						leftSpeed -= Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
 					} else {
 						rightSpeed += Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
 					}
 				} else {
+					// Too far anti-clockwise
 					if (distance > 0) {
 						rightSpeed -= Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
 					} else {

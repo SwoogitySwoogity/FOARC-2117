@@ -33,17 +33,21 @@ public final class Robot extends IterativeRobot {
 	}
 
 	private void update() {
-		SmartDashboard.putNumber("Left Encoder", m_drives.getLeftEncoderDistance());
-		SmartDashboard.putNumber("Right Encoder", m_drives.getRightEncoderDistance());
+		// Send data to the Smart Dashboard
+		SmartDashboard.putNumber("Left Encoder",
+				m_drives.getLeftEncoderDistance());
+		SmartDashboard.putNumber("Right Encoder",
+				m_drives.getRightEncoderDistance());
 		SmartDashboard.putNumber("Gyro", m_drives.getGyroAngle());
-		SmartDashboard.putNumber("Auton Chosen", SmartDashboard.getNumber("Choose Auton"));
-		
+		SmartDashboard.putNumber("Auton Chosen",
+				SmartDashboard.getNumber("Choose Auton"));
+
 		if (this.isDisabled() || this.isAutonomous()) {
 			m_autonChosen = m_autonController.getAutonChosen();
 			System.out.println("Auton Chosen: " + m_autonChosen);
 		}
 	}
-	
+
 	public void autonomousInit() {
 		m_drives.brakesOff();
 		m_autonController.resetStep();
@@ -73,5 +77,5 @@ public final class Robot extends IterativeRobot {
 	public void testPeriodic() {
 		m_drives.brakesOff();
 	}
-	
+
 }

@@ -1,9 +1,14 @@
 package org.raiderrobotix.frc2017;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+
+import org.raiderrobotix.autonhelper.Auton;
+
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.Timer;
 
-public class AutonController {
+public final class AutonController {
 
 	private static AutonController m_instance;
 
@@ -11,6 +16,7 @@ public class AutonController {
 	private final Drivebase m_drives;
 	private final Timer m_timer;
 	private final Joystick m_switchBox;
+	private Auton m_auton;
 
 	private AutonController() {
 		m_drives = Drivebase.getInstance();
@@ -29,7 +35,7 @@ public class AutonController {
 	public void resetStep() {
 		m_step = 0;
 	}
-	
+
 	public int getAutonChosen() {
 		int n = 0;
 		if (m_switchBox.getRawButton(5)) {
@@ -52,8 +58,17 @@ public class AutonController {
 		}
 		return n;
 	}
-	
+
 	public void useFTPFile() {
-		
+		if (m_step == 0) {
+			try {
+				m_auton = new Auton(new File(Constants.FTP_AUTON_FILE_PATH));
+				m_step++;
+			} catch (FileNotFoundException e) {
+				System.out.println("FTP Auton Exception");
+			}
+		} else {
+			m_auton.auton();
+		}
 	}
 }

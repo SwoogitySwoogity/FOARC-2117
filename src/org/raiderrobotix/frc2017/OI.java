@@ -2,7 +2,7 @@ package org.raiderrobotix.frc2017;
 
 import edu.wpi.first.wpilibj.Joystick;
 
-public class OI {
+public final class OI {
 
 	private static OI m_instance;
 

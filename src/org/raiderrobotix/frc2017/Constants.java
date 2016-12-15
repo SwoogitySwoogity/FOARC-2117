@@ -2,11 +2,16 @@ package org.raiderrobotix.frc2017;
 
 public abstract class Constants { // TODO: get ALL values
 
+	// Assorted Things
+	public static final String FTP_AUTON_FILE_PATH = "/home/lvuser/auton.dat";
+	
 	// Auto-Driving Constants
-	public static final double DRIVE_STRAIGHT_ANGLE_TOLERANCE = 1.0; // (In Degrees)
-	public static final double TURN_ANGLE_TOLERANCE = 1.0;
-	public static final double DRIVE_STRAIGHT_SPEED_SUBTRACTION = 0.15; //TODO: get
-	public static final double DRIVE_STRAIGHT_DISTANCE_TOLERANCE = 1.0; //TODO: get
+	public static final double TURN_ANGLE_TOLERANCE = 1.0; // (In Degrees)
+	public static final double DRIVE_STRAIGHT_ANGLE_TOLERANCE = 1.0;
+	public static final double DRIVE_STRAIGHT_SPEED_SUBTRACTION = 0.15; // TODO:
+																		// get
+	public static final double DRIVE_STRAIGHT_DISTANCE_TOLERANCE = 1.0; // TODO:
+																		// get
 
 	// PWMs (Control) TODO: get
 	public static final int LEFT_DRIVES_PWM = 8;
@@ -27,7 +32,8 @@ public abstract class Constants { // TODO: get ALL values
 	public static final int RIGHT_ENCODER_PWM_B = 7;
 
 	// Auton Information
-	private static final double TIRE_DIAMETER = 0.0; // TODO: Get Values // (In Inches)
+	private static final double TIRE_DIAMETER = 0.0; // TODO: Get Values // (In
+														// Inches)
 	private static final double TIRE_CIRCUMFERENCE = TIRE_DIAMETER * Math.PI;
 	private static final double COUNTS_PER_REVOLUTION = 85.75; // TODO: Fix Math
 	public static final double INCHES_PER_COUNT = TIRE_CIRCUMFERENCE
@@ -41,11 +47,11 @@ public abstract class Constants { // TODO: get ALL values
 	public static final double JOYSTICK_DEADBAND = 0.2;
 
 	// CAN Addresses TODO: Get Values
-	
+
 	// Inversions TODO: get
 	public static final boolean RIGHT_DRIVE_MOTORS_INVERTED = false;
 	public static final boolean LEFT_DRIVE_MOTORS_INVERTED = true;
 	public static final boolean LEFT_ENCODER_INVERTED = true;
 	public static final boolean RIGHT_ENCODER_INVERTED = false;
-	
+
 }
