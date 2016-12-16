@@ -1,7 +1,5 @@
 package org.raiderrobotix.frc2017;
 
-import java.io.File;
-
 import org.raiderrobotix.autonhelper.Auton;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -61,7 +59,7 @@ public final class AutonController {
 	public void useFTPFile() {
 		if (m_step == 0) {
 			try {
-				m_auton = new Auton(new File(Constants.FTP_AUTON_FILE_PATH));
+				m_auton = new Auton();
 				m_timer.start();
 				m_timer.reset();
 				m_step++;
@@ -69,7 +67,7 @@ public final class AutonController {
 				System.out.println("FTP Auton Reading Exception");
 			}
 		} else {
-			if(m_auton.auton(m_timer.get()) == 0.0) {
+			if (m_auton.auton(m_timer.get()) == 0.0) {
 				m_timer.reset();
 			}
 		}

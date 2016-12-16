@@ -1,6 +1,5 @@
 package org.raiderrobotix.autonhelper;
 
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -14,7 +13,7 @@ public final class Auton extends ArrayList<Instruction> {
 	private static final long serialVersionUID = 1L;
 
 	@SuppressWarnings("unchecked")
-	public Auton(File shortHandFile) throws IOException, ClassNotFoundException {
+	public Auton() throws IOException, ClassNotFoundException {
 		ObjectInputStream in = new ObjectInputStream(new FileInputStream(
 				Constants.FTP_AUTON_FILE_PATH));
 		for (Instruction i : (ArrayList<Instruction>) in.readObject()) {
@@ -44,13 +43,13 @@ public final class Auton extends ArrayList<Instruction> {
 				switch (Integer.parseInt(fn)) {
 				case Mechanism.Drives.STRAIGHT:
 					if (drives.driveStraight(value, speed)) {
-						time = 0;
+						time = 0.0;
 						this.remove(0);
 					}
 					break;
 				case Mechanism.Drives.TURN:
 					if (drives.turnToAngle(value, speed)) {
-						time = 0;
+						time = 0.0;
 						this.remove(0);
 					}
 					break;
@@ -58,18 +57,18 @@ public final class Auton extends ArrayList<Instruction> {
 				break;
 			case Mechanism.WAIT:
 				if (time >= Double.parseDouble(i.getNext())) {
-					time = 0;
+					time = 0.0;
 					this.remove(0);
 				}
 				break;
 			case Mechanism.BRAKES:
-				drives.setSpeed(0);
+				drives.setSpeed(0.0);
 				if (Integer.parseInt(i.getNext()) == Mechanism.Drives.BRAKES_ON) {
 					drives.brakesOn();
 				} else {
 					drives.brakesOff();
 				}
-				time = 0;
+				time = 0.0;
 				this.remove(0);
 			}
 		} catch (NumberFormatException e) {

@@ -52,11 +52,12 @@ public abstract class Utility {
 		String a = "";
 		boolean ran = false;
 		while (a.length() == 0 || a.indexOf(" ") >= 0) {
-			if (ran)
+			if (ran) {
 				JOptionPane
 						.showMessageDialog(
 								null,
 								"Please write a name with at least one character that contains no spaces, please.");
+			}
 			a = JOptionPane.showInputDialog(null, "Enter a name", "Enter name",
 					JOptionPane.PLAIN_MESSAGE);
 			ran = true;
@@ -99,23 +100,23 @@ public abstract class Utility {
 	 */
 	public static String getValue(String message) {
 		String a = "";
-		a = JOptionPane.showInputDialog(null, message, "Enter a value",
-				JOptionPane.PLAIN_MESSAGE);
-		if (a.indexOf("Constants.") >= 0 || a.indexOf("0.") >= 0)
-			return a;
-		else
-			JOptionPane
-					.showMessageDialog(null,
-							"Make sure you are entering a 'Constants' number or decimal starting with '0.'");
-		while (a.length() == 0)
-			try {
-				a = Double.toString(Double.parseDouble(JOptionPane
-						.showInputDialog(null, message, "Enter a value",
-								JOptionPane.PLAIN_MESSAGE)));
-			} catch (NumberFormatException e) {
+		boolean errorMessageRan = false;
+		do {
+			a = JOptionPane.showInputDialog(null, message, "Enter a value",
+					JOptionPane.PLAIN_MESSAGE);
+			if (a.indexOf("Constants.") >= 0 || a.indexOf("0.") >= 0) {
+				return a;
+			} else {
 				a = "";
 			}
-		return Double.toString(Double.parseDouble(a));
+			if(!errorMessageRan) {
+				JOptionPane
+				.showMessageDialog(null,
+						"Make sure you are entering a 'Constants' number or decimal starting with '0.'");
+				errorMessageRan = true;
+			}
+		} while(a.length() == 0);
+		return "";
 	}
 
 	public static void sendOverFile(ArrayList<Instruction> auton)

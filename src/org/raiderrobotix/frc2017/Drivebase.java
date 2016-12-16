@@ -56,8 +56,8 @@ public final class Drivebase {
 	}
 
 	public void setSpeed(double leftSpeed, double rightSpeed) {
-		m_leftDrives.set(leftSpeed);
-		m_rightDrives.set(rightSpeed);
+		m_leftDrives.set(leftSpeed * (Constants.RIGHT_DRIVE_MOTORS_INVERTED ? -1.0 : 1.0));
+		m_rightDrives.set(rightSpeed * (Constants.LEFT_DRIVE_MOTORS_INVERTED ? -1.0 : 0));
 	}
 
 	public void brakesOn() {
@@ -77,11 +77,11 @@ public final class Drivebase {
 	}
 
 	public double getLeftEncoderDistance() {
-		return m_leftEncoder.getDistance();
+		return m_leftEncoder.getDistance() * (Constants.LEFT_ENCODER_INVERTED ? -1.0 : 1.0);
 	}
 
 	public double getRightEncoderDistance() {
-		return m_rightEncoder.getDistance();
+		return m_rightEncoder.getDistance() * (Constants.RIGHT_ENCODER_INVERTED ? -1.0 : 1.0);
 	}
 
 	public double getAverageEncoderDistance() {
