@@ -112,7 +112,7 @@ public final class Drivebase {
 			if (Math.abs(getGyroAngle()) > Math.abs(angle)
 					- Constants.TURN_ANGLE_TOLERANCE) {
 				m_drivingStep = false;
-				setSpeed(0);
+				setSpeed(0.0);
 			}
 		}
 		return (!m_drivingStep);
@@ -158,7 +158,7 @@ public final class Drivebase {
 			setSpeed(leftSpeed, rightSpeed);
 			if (Math.abs(getAverageEncoderDistance()) > Math.abs(distance)
 					- Constants.DRIVE_STRAIGHT_DISTANCE_TOLERANCE) {
-				setSpeed(0);
+				setSpeed(0.0);
 				m_drivingStep = false;
 			}
 		}

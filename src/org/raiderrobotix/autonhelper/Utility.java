@@ -91,34 +91,13 @@ public abstract class Utility {
 	}
 
 	/**
-	 * Get a double value from the user.
+	 * Send over auton information to the robot.
 	 * 
-	 * @param title
-	 *            The title for the input pane.
-	 * 
-	 * @return A string value of a double entered by the user.
+	 * @param auton
+	 *            List of instructions to send to the robot.
+	 * @throws IOException
+	 *             Will throw if there is an error with the FTP connection.
 	 */
-	public static String getValue(String message) {
-		String a = "";
-		boolean errorMessageRan = false;
-		do {
-			a = JOptionPane.showInputDialog(null, message, "Enter a value",
-					JOptionPane.PLAIN_MESSAGE);
-			if (a.indexOf("Constants.") >= 0 || a.indexOf("0.") >= 0) {
-				return a;
-			} else {
-				a = "";
-			}
-			if(!errorMessageRan) {
-				JOptionPane
-				.showMessageDialog(null,
-						"Make sure you are entering a 'Constants' number or decimal starting with '0.'");
-				errorMessageRan = true;
-			}
-		} while(a.length() == 0);
-		return "";
-	}
-
 	public static void sendOverFile(ArrayList<Instruction> auton)
 			throws IOException {
 		URL url = new URL(Constants.FTP_PREFIX + Constants.FTP_AUTON_FILE_PATH);
