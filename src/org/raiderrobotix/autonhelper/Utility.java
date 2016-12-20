@@ -100,7 +100,7 @@ public abstract class Utility {
 	 */
 	public static void sendOverFile(ArrayList<Instruction> auton)
 			throws IOException {
-		URL url = new URL(Constants.FTP_PREFIX + Constants.FTP_AUTON_FILE_PATH);
+		URL url = new URL(Constants.FTP_PREFIX + Constants.AUTON_FILE_PATH);
 		URLConnection conn = url.openConnection();
 		ObjectOutputStream out = new ObjectOutputStream(conn.getOutputStream());
 		out.writeObject(auton);

@@ -3,7 +3,7 @@ package org.raiderrobotix.frc2017;
 public abstract class Constants { // TODO: get ALL values
 
 	// FTP Information
-	public static final String FTP_AUTON_FILE_PATH = "/home/lvuser/auton.dat";
+	public static final String AUTON_FILE_PATH = "/home/lvuser/auton.dat";
 	public static final String FTP_PREFIX = "ftp://roboRIO-25-frc.local";
 	
 	// Auto-Driving Constants
@@ -13,6 +13,9 @@ public abstract class Constants { // TODO: get ALL values
 																		// get
 	public static final double DRIVE_STRAIGHT_DISTANCE_TOLERANCE = 1.0; // TODO:
 																		// get
+	public static final double SLOW_SPEED_WEAK = 0.12;
+	public static final double SLOW_SPEED_LARGE = 0.18;
+	public static final double DRIVE_STRAIGHT_SLOW_RANGE = 18.0;
 
 	// PWMs (Control) TODO: get
 	public static final int LEFT_DRIVES_PWM = 8;

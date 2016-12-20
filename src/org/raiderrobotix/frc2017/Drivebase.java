@@ -56,8 +56,10 @@ public final class Drivebase {
 	}
 
 	public void setSpeed(double leftSpeed, double rightSpeed) {
-		m_leftDrives.set(leftSpeed * (Constants.RIGHT_DRIVE_MOTORS_INVERTED ? -1.0 : 1.0));
-		m_rightDrives.set(rightSpeed * (Constants.LEFT_DRIVE_MOTORS_INVERTED ? -1.0 : 0));
+		m_leftDrives.set(leftSpeed
+				* (Constants.RIGHT_DRIVE_MOTORS_INVERTED ? -1.0 : 1.0));
+		m_rightDrives.set(rightSpeed
+				* (Constants.LEFT_DRIVE_MOTORS_INVERTED ? -1.0 : 0));
 	}
 
 	public void brakesOn() {
@@ -77,11 +79,13 @@ public final class Drivebase {
 	}
 
 	public double getLeftEncoderDistance() {
-		return m_leftEncoder.getDistance() * (Constants.LEFT_ENCODER_INVERTED ? -1.0 : 1.0);
+		return m_leftEncoder.getDistance()
+				* (Constants.LEFT_ENCODER_INVERTED ? -1.0 : 1.0);
 	}
 
 	public double getRightEncoderDistance() {
-		return m_rightEncoder.getDistance() * (Constants.RIGHT_ENCODER_INVERTED ? -1.0 : 1.0);
+		return m_rightEncoder.getDistance()
+				* (Constants.RIGHT_ENCODER_INVERTED ? -1.0 : 1.0);
 	}
 
 	public double getAverageEncoderDistance() {
@@ -104,6 +108,7 @@ public final class Drivebase {
 	 */
 	public boolean turnToAngle(double angle, double speed) {
 		if (!m_drivingStep) {
+			brakesOff();
 			resetNavX();
 			m_drivingStep = true;
 		} else {
@@ -130,6 +135,7 @@ public final class Drivebase {
 	 */
 	public boolean driveStraight(double distance, double speed) {
 		if (!m_drivingStep) {
+			brakesOff();
 			resetNavX();
 			resetEncoders();
 			m_drivingStep = true;
@@ -137,25 +143,31 @@ public final class Drivebase {
 			speed = Math.abs(speed) * (distance / Math.abs(distance));
 			double leftSpeed = speed;
 			double rightSpeed = speed;
-			if (Math.abs(getGyroAngle()) > Constants.DRIVE_STRAIGHT_ANGLE_TOLERANCE) {
-				// Adjust speeds for incorrect angles
-				if (getGyroAngle() > 0) {
-					// Too far clockwise
-					if (distance > 0) {
-						leftSpeed -= Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
+			if (getAverageEncoderDistance()
+					+ Constants.DRIVE_STRAIGHT_SLOW_RANGE >= distance) {
+				// If within slow range, set to slow speed
+				setToSlowSpeed(speed > 0.0);
+			} else {
+				if (Math.abs(getGyroAngle()) > Constants.DRIVE_STRAIGHT_ANGLE_TOLERANCE) {
+					// Adjust speeds for incorrect angles
+					if (getGyroAngle() > 0) {
+						// Too far clockwise
+						if (distance > 0) {
+							leftSpeed -= Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
+						} else {
+							rightSpeed += Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
+						}
 					} else {
-						rightSpeed += Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
-					}
-				} else {
-					// Too far anti-clockwise
-					if (distance > 0) {
-						rightSpeed -= Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
-					} else {
-						leftSpeed += Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
+						// Too far anti-clockwise
+						if (distance > 0) {
+							rightSpeed -= Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
+						} else {
+							leftSpeed += Constants.DRIVE_STRAIGHT_SPEED_SUBTRACTION;
+						}
 					}
 				}
+				setSpeed(leftSpeed, rightSpeed);
 			}
-			setSpeed(leftSpeed, rightSpeed);
 			if (Math.abs(getAverageEncoderDistance()) > Math.abs(distance)
 					- Constants.DRIVE_STRAIGHT_DISTANCE_TOLERANCE) {
 				setSpeed(0.0);
@@ -163,6 +175,14 @@ public final class Drivebase {
 			}
 		}
 		return (!m_drivingStep);
+	}
+
+	public void setToSlowSpeed(boolean forward) {
+		if (forward) {
+			setSpeed(Constants.SLOW_SPEED_LARGE, Constants.SLOW_SPEED_WEAK);
+		} else {
+			setSpeed(-Constants.SLOW_SPEED_WEAK, -Constants.SLOW_SPEED_LARGE);
+		}
 	}
 
 	public double getGyroAngle() {

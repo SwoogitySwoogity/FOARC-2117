@@ -15,7 +15,7 @@ public final class Auton extends ArrayList<Instruction> {
 	@SuppressWarnings("unchecked")
 	public Auton() throws IOException, ClassNotFoundException {
 		ObjectInputStream in = new ObjectInputStream(new FileInputStream(
-				Constants.FTP_AUTON_FILE_PATH));
+				Constants.AUTON_FILE_PATH));
 		for (Instruction i : (ArrayList<Instruction>) in.readObject()) {
 			this.add(i);
 		}
