@@ -39,7 +39,7 @@ public class AutonUI extends JFrame {
 		addButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				is.add(new InstructionPanel(is.size() + 1));
-				setComponentsInPane(false);
+				updateUI(false);
 			}
 		});
 		helpButton.addActionListener(new ActionListener() {
@@ -90,7 +90,7 @@ public class AutonUI extends JFrame {
 				}
 			}
 		});
-		setComponentsInPane(true);
+		updateUI(true);
 		this.setSize(850, 600);
 		this.setResizable(false);
 		this.setLocationRelativeTo(null);
@@ -104,7 +104,12 @@ public class AutonUI extends JFrame {
 		return _instance;
 	}
 
-	protected void setComponentsInPane(boolean init) {
+	/**
+	 * Repaints and revalidates all components and puts them togethers if this is the first time.
+	 * 
+	 * @param init Is this the first time the UI is running for the user?
+	 */
+	protected void updateUI(boolean init) {
 		if (init) {
 			pane.removeAll();
 			JPanel northernButtonPanel = new JPanel();

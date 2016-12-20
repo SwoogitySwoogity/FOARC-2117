@@ -23,6 +23,11 @@ public class InstructionSet extends ArrayList<InstructionPanel> {
 		return _instance;
 	}
 
+	/**
+	 * Updates and creates JPanel from instruction panel(s).
+	 * 
+	 * @return A usable JPanel using ArrayList information.
+	 */
 	public JPanel getPanel() {
 		JPanel nonScroll = new JPanel();
 		nonScroll.setLayout(new GridLayout(this.size(), 1, 0, 15));
@@ -43,15 +48,21 @@ public class InstructionSet extends ArrayList<InstructionPanel> {
 		return ret;
 	}
 
+	/**
+	 * Refinement of the remove method.
+	 */
 	public InstructionPanel remove(int index) {
 		InstructionPanel r = super.remove(index);
 		for (int i = 0; i < this.size(); i++) {
 			this.get(i).step = i + 1;
 		}
-		AutonUI.getInstance().setComponentsInPane(false);
+		AutonUI.getInstance().updateUI(false);
 		return r;
 	}
 
+	/**
+	 * Refinement of the add method.
+	 */
 	public boolean add(InstructionPanel e) {
 		super.add(e);
 		e.update();

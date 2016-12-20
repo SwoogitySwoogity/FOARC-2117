@@ -21,13 +21,11 @@ public final class InstructionPanel extends JPanel {
 
 	private static final long serialVersionUID = 1L;
 
+	// Components of an Instruction Panel
 	private JLabel stepLabel = new JLabel("", SwingConstants.CENTER);
 	private JButton removeButton = new JButton("X");
 	private JButton reorderButtonUp = new JButton("<html>&#9650<html>");
 	private JButton reorderButtonDown = new JButton("<html>&#9660<html>");
-	protected int step;
-	private InstructionSet instructionSet;
-	private HashMap<String, ArrayList<Integer>> mechanismMapping;
 	private JComboBox<Object> mechanismDropDown;
 	private JLabel speedLabel = new JLabel("Speed: ");
 	private JTextField speedField = new JTextField();
@@ -35,9 +33,14 @@ public final class InstructionPanel extends JPanel {
 	private JLabel valueLabel = new JLabel("Value: ");
 	private JTextField valueField = new JTextField();
 	private JPanel valuePanel = new JPanel();
-	private GridLayout dataPanelLayout = new GridLayout(1, 2, 5, 5);
 	private JPanel extraDataPanel = new JPanel();
 	private JPanel reorderPanel;
+	
+	// Instruction Panel Resources
+	protected int step;
+	private InstructionSet instructionSet;
+	private HashMap<String, ArrayList<Integer>> mechanismMapping;
+	private GridLayout dataPanelLayout = new GridLayout(1, 2, 5, 5);
 	private long lastTimeClickedSpeed;
 
 	public InstructionPanel(int initStep) {
@@ -113,7 +116,7 @@ public final class InstructionPanel extends JPanel {
 					extraDataPanel.add(new JLabel(""));
 					break;
 				}
-				AutonUI.getInstance().setComponentsInPane(false);
+				AutonUI.getInstance().updateUI(false);
 			}
 		});
 		mechanismDropDown.setBackground(Color.WHITE);
@@ -143,29 +146,40 @@ public final class InstructionPanel extends JPanel {
 		this.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 	}
 
+	/**
+	 * Assign drop down menu items to the correct mechanism IDs for shorthand code.
+	 */
 	private void mapMechanisms() {
 		mechanismMapping = new HashMap<String, ArrayList<Integer>>();
+		
 		ArrayList<Integer> n = new ArrayList<Integer>();
 		n.add(Mechanism.DRIVES);
 		n.add(Mechanism.Drives.STRAIGHT);
 		mechanismMapping.put("Drive Straight", n);
+		
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.DRIVES);
 		n.add(Mechanism.Drives.TURN);
 		mechanismMapping.put("Drive- Spin", n);
+		
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.BRAKES);
 		n.add(Mechanism.Drives.BRAKES_ON);
 		mechanismMapping.put("Brakes In", n);
+		
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.BRAKES);
 		n.add(Mechanism.Drives.BRAKES_OFF);
 		mechanismMapping.put("Brakes Out", n);
+		
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.WAIT);
 		mechanismMapping.put("Timer- Wait", n);
 	}
 
+	/**
+	 * Update instruction panel's appearance for minor changes.
+	 */
 	public void update() {
 		stepLabel.setText("Step " + Integer.toString(step));
 		reorderPanel.removeAll();
@@ -176,6 +190,11 @@ public final class InstructionPanel extends JPanel {
 						"") : reorderButtonDown);
 	}
 
+	/**
+	 * Make shorthand code from user input on UI.
+	 * 
+	 * @return Instruction information made from what the user enters into the panel.
+	 */
 	public Instruction getInstruction() {
 		Instruction ret = new Instruction();
 		for (int i : mechanismMapping.get((String) mechanismDropDown
