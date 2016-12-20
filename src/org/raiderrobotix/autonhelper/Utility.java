@@ -105,6 +105,9 @@ public abstract class Utility {
 		ObjectOutputStream out = new ObjectOutputStream(conn.getOutputStream());
 		out.writeObject(auton);
 		out.close();
+		JOptionPane.showMessageDialog(null, new JLabel(
+				"<html>Transfer Successful!</html>", SwingConstants.CENTER),
+				"Message", JOptionPane.PLAIN_MESSAGE);
 	}
 
 }
