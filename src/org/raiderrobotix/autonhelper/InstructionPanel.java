@@ -44,12 +44,15 @@ public final class InstructionPanel extends JPanel {
 	private long lastTimeClickedSpeed;
 
 	public InstructionPanel(int initStep) {
+		// Assign Variables
 		step = initStep;
 		mapMechanisms();
 		lastTimeClickedSpeed = System.currentTimeMillis() - 2000;
 		mechanismDropDown = new JComboBox<Object>(
 				(mechanismMapping.keySet().toArray()));
 		instructionSet = InstructionSet.getInstance();
+		
+		// Create panels For Extra Auton Data
 		speedPanel.setLayout(dataPanelLayout);
 		speedPanel.add(speedLabel);
 		speedPanel.add(speedField);
@@ -79,6 +82,8 @@ public final class InstructionPanel extends JPanel {
 		valuePanel.add(valueLabel);
 		valuePanel.add(valueField);
 		extraDataPanel.setLayout(new GridLayout(2, 1, 5, 5));
+		
+		// Create Accessory Buttons and Functions for Instruction Panels
 		removeButton.setForeground(Color.RED);
 		removeButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,6 +103,8 @@ public final class InstructionPanel extends JPanel {
 				instructionSet.remove(step - 1);
 			}
 		});
+		
+		// Create Mechanism Drop-Down menu
 		mechanismDropDown.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				extraDataPanel.removeAll();
@@ -120,6 +127,8 @@ public final class InstructionPanel extends JPanel {
 			}
 		});
 		mechanismDropDown.setBackground(Color.WHITE);
+		
+		// Assign Layout and Components
 		this.setLayout(dataPanelLayout);
 		JPanel westPanel = new JPanel();
 		westPanel.setLayout(new GridLayout(2, 1, 2, 2));
@@ -152,26 +161,31 @@ public final class InstructionPanel extends JPanel {
 	private void mapMechanisms() {
 		mechanismMapping = new HashMap<String, ArrayList<Integer>>();
 		
+		// Drive Straight
 		ArrayList<Integer> n = new ArrayList<Integer>();
 		n.add(Mechanism.DRIVES);
 		n.add(Mechanism.Drives.STRAIGHT);
 		mechanismMapping.put("Drive Straight", n);
 		
+		// Turn To Angle
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.DRIVES);
 		n.add(Mechanism.Drives.TURN);
 		mechanismMapping.put("Drive- Spin", n);
 		
+		// Brakes On
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.BRAKES);
 		n.add(Mechanism.Drives.BRAKES_ON);
 		mechanismMapping.put("Brakes In", n);
 		
+		// Brakes Off
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.BRAKES);
 		n.add(Mechanism.Drives.BRAKES_OFF);
 		mechanismMapping.put("Brakes Out", n);
 		
+		// Timer- Wait
 		n = new ArrayList<Integer>();
 		n.add(Mechanism.WAIT);
 		mechanismMapping.put("Timer- Wait", n);

@@ -69,11 +69,20 @@ public final class InstructionSet extends ArrayList<InstructionPanel> {
 		return true;
 	}
 
+	/**
+	 * Make plain-text code from the user's current selections.
+	 * 
+	 * @param methodName The name of the method to use in the code.
+	 * @return The plain-text code that you can copy into the robot files.
+	 */
 	public String getCode(String methodName) {
+		// Set Up Initial Variables
 		String ret = "public void " + methodName + "() {\n";
 		ret += "if(m_step == 0) {\n";
 		int counter = 0;
 		boolean extraIndentExists = false;
+		
+		// Add Resets and Close Last Step
 		for (InstructionPanel i : this) {
 			switch (Integer.parseInt(i.getInstruction().getNext())) {
 			case Mechanism.WAIT:
@@ -96,6 +105,8 @@ public final class InstructionSet extends ArrayList<InstructionPanel> {
 				ret += "}\n";
 				extraIndentExists = false;
 			}
+			
+			// Create Current Step
 			ret += "} else if (m_step == " + Integer.toString(counter)
 					+ ") {\n";
 			counter++;
@@ -128,6 +139,8 @@ public final class InstructionSet extends ArrayList<InstructionPanel> {
 				break;
 			}
 		}
+		
+		// End Auton Method
 		if (extraIndentExists) {
 			ret += "}\n";
 			extraIndentExists = false;
