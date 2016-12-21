@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
-public class AutonUI extends JFrame {
+public final class AutonUI extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private static AutonUI _instance;
@@ -75,10 +75,12 @@ public class AutonUI extends JFrame {
 					String methodName = Utility.getName();
 					Clipboard c = Toolkit.getDefaultToolkit()
 							.getSystemClipboard();
-					StringSelection code = new StringSelection(methodName); // TODO:
-																			// put
-																			// code
+					StringSelection code = new StringSelection(is
+							.getCode(methodName));
 					c.setContents(code, code);
+					JOptionPane.showMessageDialog(null, new JLabel(
+							"Copy Successful!", SwingConstants.CENTER),
+							"Message", JOptionPane.PLAIN_MESSAGE);
 				} catch (Exception e1) {
 					JOptionPane
 							.showMessageDialog(
@@ -105,9 +107,11 @@ public class AutonUI extends JFrame {
 	}
 
 	/**
-	 * Repaints and revalidates all components and puts them togethers if this is the first time.
+	 * Repaints and revalidates all components and puts them together if this
+	 * is the first time.
 	 * 
-	 * @param init Is this the first time the UI is running for the user?
+	 * @param init
+	 *            Is this the first time the UI is running for the user?
 	 */
 	protected void updateUI(boolean init) {
 		if (init) {

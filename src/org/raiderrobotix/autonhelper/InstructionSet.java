@@ -8,7 +8,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
-public class InstructionSet extends ArrayList<InstructionPanel> {
+public final class InstructionSet extends ArrayList<InstructionPanel> {
 
 	private static final long serialVersionUID = 1L;
 	private static InstructionSet _instance;
@@ -67,6 +67,76 @@ public class InstructionSet extends ArrayList<InstructionPanel> {
 		super.add(e);
 		e.update();
 		return true;
+	}
+
+	public String getCode(String methodName) {
+		String ret = "public void " + methodName + "() {\n";
+		ret += "if(m_step == 0) {\n";
+		int counter = 0;
+		boolean extraIndentExists = false;
+		for (InstructionPanel i : this) {
+			switch (Integer.parseInt(i.getInstruction().getNext())) {
+			case Mechanism.WAIT:
+				ret += "m_timer.start();\n";
+				ret += "m_timer.reset();\n";
+				break;
+			case Mechanism.DRIVES:
+				ret += "m_drives.brakesOff();\n";
+				ret += "m_drives.resetNavX();\n";
+				if (Integer.parseInt(i.getInstruction().get(1)) == Mechanism.Drives.STRAIGHT) {
+					ret += "m_drives.resetEncoders();\n";
+				}
+				break;
+			case Mechanism.BRAKES:
+				ret += "m_drives.setSpeed(0.0);\n";
+				break;
+			}
+			ret += "m_step++;\n";
+			if (extraIndentExists) {
+				ret += "}\n";
+				extraIndentExists = false;
+			}
+			ret += "} else if (m_step == " + Integer.toString(counter)
+					+ ") {\n";
+			counter++;
+			Instruction instruction = i.getInstruction();
+			switch (Integer.parseInt(instruction.getNext())) {
+			case Mechanism.WAIT:
+				ret += "if (m_timer.get() > " + instruction.getNext() + ") {\n";
+				extraIndentExists = true;
+				break;
+			case Mechanism.DRIVES:
+				switch (Integer.parseInt(instruction.getNext())) {
+				case Mechanism.Drives.STRAIGHT:
+					ret += "if (m_drives.driveStraight("
+							+ instruction.getNext() + ", "
+							+ instruction.getNext() + ")) {\n";
+					break;
+				case Mechanism.Drives.TURN:
+					ret += "if (m_drives.turnToAngle(" + instruction.getNext()
+							+ ", " + instruction.getNext() + ")) {\n";
+					break;
+				}
+				extraIndentExists = true;
+				break;
+			case Mechanism.BRAKES:
+				if (Integer.parseInt(instruction.getNext()) == Mechanism.Drives.BRAKES_ON) {
+					ret += "m_drives.brakesOn();\n";
+				} else {
+					ret += "m_drives.brakesOff();\n";
+				}
+				break;
+			}
+		}
+		if (extraIndentExists) {
+			ret += "}\n";
+			extraIndentExists = false;
+		}
+		ret += "} else {\n";
+		ret += "m_drives.setSpeed(0.0);\n";
+		ret += "}\n";
+		ret += "}\n";
+		return ret;
 	}
 
 }

@@ -58,7 +58,7 @@ public abstract class Utility {
 								null,
 								"Please write a name with at least one character that contains no spaces, please.");
 			}
-			a = JOptionPane.showInputDialog(null, "Enter a name", "Enter name",
+			a = JOptionPane.showInputDialog(null, "Enter the method name", "Enter name",
 					JOptionPane.PLAIN_MESSAGE);
 			ran = true;
 		}

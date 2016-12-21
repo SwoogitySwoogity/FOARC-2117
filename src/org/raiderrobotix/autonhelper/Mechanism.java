@@ -1,6 +1,6 @@
 package org.raiderrobotix.autonhelper;
 
-public abstract class Mechanism { // TODO: Add functions of robot
+public abstract class Mechanism {
 
 	public static final int WAIT = -1;
 	public static final int DRIVES = 0;

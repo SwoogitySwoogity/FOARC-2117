@@ -4,5 +4,10 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.7"/>
 	<classpathentry kind="lib" path="C:/Users/Adam/wpilib/java/current/lib/WPILib.jar"/>
 	<classpathentry kind="lib" path="C:/Users/Adam/Documents/navx_frc.jar"/>
+	<classpathentry kind="lib" path="Z:/FRCLibraries/2016 WPILIBJ/NetworkTables.jar"/>
+	<classpathentry kind="lib" path="Z:/FRCLibraries/2016 WPILIBJ/NetworkTables-sources.jar"/>
+	<classpathentry kind="lib" path="Z:/FRCLibraries/2016 WPILIBJ/WPILib.jar"/>
+	<classpathentry kind="lib" path="Z:/FRCLibraries/2016 WPILIBJ/WPILib-sources.jar"/>
+	<classpathentry kind="lib" path="Z:/FRCLibraries/navx_frc.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
